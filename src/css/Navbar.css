@@ -17,9 +17,12 @@
   margin-top: 0;
   list-style: none;
   display: flex;
+  align-items: center;
+  padding-top: 10px;
 }
 
 .nav-item {
   text-decoration: none;
   margin-right: 5em;
+  color: white;
 }
