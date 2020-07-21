@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Navbar.css';
 
+// NEED TO DETERMINE IF SOMEONE IS LOGGED IN
+
 const Navbar = () => {
   return (
     <nav className="navbar">
@@ -19,12 +21,15 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
+          <Link className="nav-item" to="/my-feed">
+            My Feed
+          </Link>
+        </li>
+
+        <li>
           <Link className="nav-item" to="/login">
             Login
           </Link>
-        </li>
-        <li>
-          <Link className="nav-item">My Feed</Link>
         </li>
       </ul>
     </nav>
