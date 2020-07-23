@@ -6,10 +6,14 @@ export const useAuthentication = () => {
   const [user, setUser] = useState({});
 
   const loginUser = data => {
-    localStorage.setItem('user', {
-      expiresAt: data.expiresAt,
-      email: data.email,
-    });
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        email: data.data.user.email,
+        username: data.data.user.username,
+      })
+    );
+    setUser({ email: data.data.user.email, username: data.data.user.username });
   };
 
   useEffect(() => {
@@ -17,11 +21,24 @@ export const useAuthentication = () => {
 
     const checkAuth = async () => {
       if (!userData) {
-        const res = await axios.get('/users/auth');
-        loginUser(res);
-        console.log(localStorage.getItem('user'));
+        try {
+          const res = await axios.get('/users/auth');
+          loginUser(res);
+          setLoaded(true);
+        } catch (err) {
+          setLoaded(true);
+        }
+      } else {
+        setUser(JSON.parse(userData));
+        setLoaded(true);
       }
     };
     checkAuth();
   }, []);
+
+  return {
+    loaded,
+    user,
+    loginUser,
+  };
 };
