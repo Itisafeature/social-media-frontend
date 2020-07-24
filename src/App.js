@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter,
+} from 'react-router-dom';
 import { useAuthentication } from './hooks/authentication';
 import UserContext from './context/UserContext';
 import Navbar from './components/Navbar';
@@ -7,8 +12,8 @@ import Login from './components/Login';
 import Posts from './components/Posts';
 import './css/App.css';
 
-function App() {
-  const { loaded, user, loginUser } = useAuthentication();
+function App(props) {
+  const { loaded, user, loginUser } = useAuthentication(props.history);
 
   if (!loaded) return <div>Loading...</div>;
 
@@ -31,4 +36,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

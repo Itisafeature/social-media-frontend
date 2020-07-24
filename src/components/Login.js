@@ -2,8 +2,9 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import '../css/Login.css';
 import UserContext from '../context/UserContext';
+import { withRouter } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { loginUser } = useContext(UserContext);
@@ -13,6 +14,7 @@ const Login = () => {
     try {
       const res = await axios.post('/users/login', { email, password });
       loginUser(res);
+      history.push('/feed');
     } catch (err) {
       debugger;
     }
@@ -46,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

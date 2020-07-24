@@ -8,8 +8,6 @@ import '../css/Navbar.css';
 const Navbar = () => {
   const { user } = useContext(UserContext);
 
-  console.log(!!user);
-
   if (Object.keys(user).length === 0) {
     return (
       <nav className="navbar">
@@ -27,8 +25,8 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link className="nav-item" to="/login">
-              Login
+            <Link className="nav-item" to="/logout">
+              Logout
             </Link>
           </li>
         </ul>
