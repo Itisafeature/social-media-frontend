@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import axios from 'axios';
-import { useAuthentication } from '../hooks/authentication';
 import UserContext from '../context/UserContext';
 import '../css/Navbar.css';
 

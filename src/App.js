@@ -8,9 +8,8 @@ import {
 import { useAuthentication } from './hooks/authentication';
 import UserContext from './context/UserContext';
 import Navbar from './components/Navbar';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Posts from './components/Posts';
+import AuthenticatedRouter from './components/AuthenticatedRouter';
+import UnauthenticatedRouter from './components/UnauthenticatedRouter';
 import './css/App.css';
 
 const App = ({ history }) => {
@@ -24,15 +23,8 @@ const App = ({ history }) => {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/feed">
-              <Posts />
-            </Route>
-            <Route exact path="/signup">
-              <Signup />
-            </Route>
+            {Object.keys(user).length > 0 && <AuthenticatedRouter />}
+            {Object.keys(user).length === 0 && <UnauthenticatedRouter />}
           </Switch>
         </div>
       </Router>
