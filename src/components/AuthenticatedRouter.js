@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import Posts from './Posts';
+import PostForm from './PostForm';
 
 const AuthenticatedRouter = () => {
   return (
@@ -12,6 +13,9 @@ const AuthenticatedRouter = () => {
       </Route>
       <Route exact path="/feed">
         <Posts />
+      </Route>
+      <Route exact path="/posts/new">
+        <PostForm />
       </Route>
       <Route exact path="/signup">
         <Signup />
