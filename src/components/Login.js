@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import '../css/Login.css';
 import UserContext from '../context/UserContext';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ const Login = ({ history }) => {
       loginUser(res);
       history.push('/feed');
     } catch (err) {
-      debugger;
+      // TODO: handle error
     }
   };
 
@@ -43,6 +43,9 @@ const Login = ({ history }) => {
             Login
           </button>
         </form>
+        <Link className="signup-btn" to="/signup">
+          <button>Signup</button>
+        </Link>
       </div>
     </>
   );

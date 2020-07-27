@@ -26,3 +26,15 @@
   margin-right: 5em;
   color: white;
 }
+
+.nav-item__logout-btn {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1em;
+  background: none;
+  border: none;
+  cursor: pointer;
+}

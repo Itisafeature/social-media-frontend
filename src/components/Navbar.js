@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import axios from 'axios';
+import { useAuthentication } from '../hooks/authentication';
 import UserContext from '../context/UserContext';
 import '../css/Navbar.css';
 
-// NEED TO DETERMINE IF SOMEONE IS LOGGED IN
+// FIXME: Object.keys better way
 
-const Navbar = () => {
-  const { user } = useContext(UserContext);
+const Navbar = ({ history }) => {
+  const { user, logoutUser } = useContext(UserContext);
 
   if (Object.keys(user).length === 0) {
     return (
@@ -25,8 +27,8 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link className="nav-item" to="/logout">
-              Logout
+            <Link className="nav-item" to="/login">
+              Login
             </Link>
           </li>
         </ul>
@@ -55,13 +57,16 @@ const Navbar = () => {
         </li>
 
         <li>
-          <Link className="nav-item" to="/login">
-            Login
-          </Link>
+          <button
+            className="nav-item nav-item__logout-btn"
+            onClick={() => logoutUser(history)}
+          >
+            Logout
+          </button>
         </li>
       </ul>
     </nav>
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);

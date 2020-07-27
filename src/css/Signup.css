@@ -1,0 +1,36 @@
+.signup {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-header {
+  text-align: center;
+  margin-top: 2em;
+  font-size: 2em;
+}
+
+.signup-form {
+  display: flex;
+  height: 30vh;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 20%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-form:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.signup-form__text {
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.signup-form__btn {
+  width: 50%;
+}

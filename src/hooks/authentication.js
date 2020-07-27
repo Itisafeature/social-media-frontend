@@ -17,6 +17,13 @@ export const useAuthentication = history => {
     setUser({ email: data.data.user.email, username: data.data.user.username });
   };
 
+  const logoutUser = async history => {
+    localStorage.removeItem('user');
+    setUser({});
+    await axios.get('/users/logout');
+    history.push('/login');
+  };
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
 
@@ -27,14 +34,12 @@ export const useAuthentication = history => {
           loginUser(res);
           setLoaded(true);
         } catch (err) {
-          // Need to handle invalid auth here
           setLoaded(true);
+          history.push('/login');
         }
       } else if (Date.now() > userData.expiresAt) {
         setLoaded(true);
         history.push('/login');
-        // Need to redirect to login page
-        // How to get the expiry of cookie... Set and get from localStorage against Date.now
       } else {
         setUser(userData);
         setLoaded(true);
@@ -47,5 +52,6 @@ export const useAuthentication = history => {
     loaded,
     user,
     loginUser,
+    logoutUser,
   };
 };

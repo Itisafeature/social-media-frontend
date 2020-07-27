@@ -9,16 +9,17 @@ import { useAuthentication } from './hooks/authentication';
 import UserContext from './context/UserContext';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
+import Signup from './components/Signup';
 import Posts from './components/Posts';
 import './css/App.css';
 
-function App(props) {
-  const { loaded, user, loginUser } = useAuthentication(props.history);
+const App = ({ history }) => {
+  const { loaded, user, loginUser, logoutUser } = useAuthentication(history);
 
   if (!loaded) return <div>Loading...</div>;
 
   return (
-    <UserContext.Provider value={{ user, loginUser }}>
+    <UserContext.Provider value={{ user, loginUser, logoutUser }}>
       <Router>
         <div className="App">
           <Navbar />
@@ -29,11 +30,14 @@ function App(props) {
             <Route exact path="/feed">
               <Posts />
             </Route>
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
           </Switch>
         </div>
       </Router>
     </UserContext.Provider>
   );
-}
+};
 
 export default withRouter(App);
