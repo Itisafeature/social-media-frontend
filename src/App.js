@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  withRouter,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, withRouter } from 'react-router-dom';
 import { useAuthentication } from './hooks/authentication';
 import UserContext from './context/UserContext';
 import Navbar from './components/Navbar';

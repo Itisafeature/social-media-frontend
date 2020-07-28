@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Post from '../components/Post';
+import PostForm from '../components/PostForm';
 import '../css/Posts.css';
 
 const Posts = () => {
@@ -17,12 +18,19 @@ const Posts = () => {
     getPosts();
   }, []);
 
+  const handleNewPost = post => {
+    setPosts(posts.concat(post));
+  };
+
   return (
-    <div className="post__container">
-      {posts.map(el => (
-        <Post key={el._id} post={el} />
-      ))}
-    </div>
+    <>
+      <PostForm handleNewPost={handleNewPost} />
+      <div className="post__container">
+        {posts.map(el => (
+          <Post key={el._id} post={el} />
+        ))}
+      </div>
+    </>
   );
 };
 
