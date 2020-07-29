@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Post from '../components/Post';
 import PostForm from '../components/PostForm';
 import '../css/Posts.css';
 
-const Posts = () => {
+const Posts = ({ history }) => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const data = await axios.get('/posts');
-        setPosts(data.data.posts);
+        const res = await axios.get('/posts');
+        setPosts(res.data.posts);
       } catch (err) {
         setPosts([]);
       }
@@ -19,7 +20,7 @@ const Posts = () => {
   }, []);
 
   const handleNewPost = post => {
-    setPosts(posts.concat(post));
+    setPosts([post].concat(posts));
   };
 
   return (
@@ -34,4 +35,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default withRouter(Posts);
