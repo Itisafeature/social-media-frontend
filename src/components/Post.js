@@ -2,12 +2,32 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import UserContext from '../context/UserContext';
 import { useField } from '../hooks/fields';
+import Comments from './Comments';
 import '../css/Post.css';
 
 const Post = ({ post, handleEditPost, handleDeletePost }) => {
   const [showForm, setShowForm] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
   const content = useField('text');
+  const commentContent = useField('text');
   const { user } = useContext(UserContext);
+
+  const handleNewComment = async event => {
+    event.preventDefault();
+    try {
+      const res = await axios.post(`/posts/${post._id}/comments`, {
+        content: commentContent.value,
+      });
+      if (comments.length > 0) {
+        setComments([res.data.comment].concat(comments));
+      }
+      console.log(res.data);
+    } catch (err) {
+      // TODO: HANDLE ERROR
+      console.log(err);
+    }
+  };
 
   return (
     <div className="post">
@@ -34,6 +54,21 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
           ></textarea>
           <button type="submit">Update Post</button>
         </form>
+      )}
+      <button onClick={() => setShowComments(!showComments)}>Comments</button>
+      {showComments && (
+        <>
+          <form onSubmit={handleNewComment}>
+            <textarea
+              className="content"
+              rows="6"
+              cols="30"
+              {...commentContent}
+            ></textarea>
+            <button type="submit">Leave Comment</button>
+          </form>
+          <Comments />
+        </>
       )}
     </div>
   );
