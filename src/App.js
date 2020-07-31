@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, withRouter } from 'react-router-dom';
+import { Switch, withRouter } from 'react-router-dom';
 import { useAuthentication } from './hooks/authentication';
 import UserContext from './context/UserContext';
 import Navbar from './components/Navbar';
@@ -14,15 +14,13 @@ const App = ({ history }) => {
 
   return (
     <UserContext.Provider value={{ user, loginUser, logoutUser }}>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <Switch>
-            {Object.keys(user).length > 0 && <AuthenticatedRouter />}
-            {Object.keys(user).length === 0 && <UnauthenticatedRouter />}
-          </Switch>
-        </div>
-      </Router>
+      <div className="App">
+        <Navbar />
+        <Switch>
+          {Object.keys(user).length > 0 && <AuthenticatedRouter />}
+          {Object.keys(user).length === 0 && <UnauthenticatedRouter />}
+        </Switch>
+      </div>
     </UserContext.Provider>
   );
 };

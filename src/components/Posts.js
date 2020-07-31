@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Post from '../components/Post';
 import PostForm from '../components/PostForm';
 import '../css/Posts.css';
 
-const Posts = ({ history }) => {
+const Posts = ({ getPosts }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const res = await axios.get('/posts');
-        setPosts(res.data.posts);
-      } catch (err) {
-        setPosts([]);
-      }
-    };
-    getPosts();
-  }, []);
+    try {
+      getPosts().then(data => setPosts(data));
+    } catch (err) {
+      setPosts([]);
+    }
+  }, [getPosts]);
 
   const handleNewPost = post => {
-    setPosts([post].concat(posts));
+    setPosts(posts => [post].concat(posts));
   };
 
   const handleEditPost = async (event, post, content, setShowForm) => {
@@ -31,10 +26,11 @@ const Posts = ({ history }) => {
         content: content.value,
       });
       const editedPost = res.data.post;
-      setPosts(
+      console.log(editedPost.updatedAt);
+      setPosts(posts =>
         posts
           .map(post => (editedPost._id === post._id ? editedPost : post))
-          .sort((a, b) => new Date(a.updatedAt) > new Date(b.updatedAt))
+          .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
       );
       content.onReset();
       setShowForm(false);
@@ -72,4 +68,4 @@ const Posts = ({ history }) => {
   );
 };
 
-export default withRouter(Posts);
+export default Posts;

@@ -21,11 +21,24 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
       });
       if (comments.length > 0) {
         setComments([res.data.comment].concat(comments));
+        commentContent.onReset();
+      } else {
+        setComments(res.data.comment);
       }
-      console.log(res.data);
     } catch (err) {
       // TODO: HANDLE ERROR
       console.log(err);
+    }
+  };
+
+  const loadComments = async () => {
+    if (comments.length === 0) {
+      try {
+        const res = await axios.get(`/posts/${post._id}/comments`);
+        setComments(res.data.comments);
+      } catch (err) {
+        // TODO: HANDLE ERROR
+      }
     }
   };
 
@@ -55,7 +68,14 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
           <button type="submit">Update Post</button>
         </form>
       )}
-      <button onClick={() => setShowComments(!showComments)}>Comments</button>
+      <button
+        onClick={() => {
+          setShowComments(!showComments);
+          loadComments();
+        }}
+      >
+        Comments
+      </button>
       {showComments && (
         <>
           <form onSubmit={handleNewComment}>
@@ -67,7 +87,7 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
             ></textarea>
             <button type="submit">Leave Comment</button>
           </form>
-          <Comments />
+          <Comments comments={comments} />
         </>
       )}
     </div>

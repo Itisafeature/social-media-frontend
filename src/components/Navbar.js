@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import '../css/Navbar.css';
 
 // FIXME: Object.keys better way
 
-const Navbar = ({ history }) => {
+const Navbar = () => {
+  const history = useHistory();
   const { user, logoutUser } = useContext(UserContext);
 
   if (Object.keys(user).length === 0) {
@@ -67,4 +68,4 @@ const Navbar = ({ history }) => {
   );
 };
 
-export default withRouter(Navbar);
+export default Navbar;

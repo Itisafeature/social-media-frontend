@@ -2,18 +2,20 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import '../css/Login.css';
 import UserContext from '../context/UserContext';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-const Login = ({ history }) => {
+const Login = () => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { loginUser } = useContext(UserContext);
 
   const handleSubmit = async event => {
     event.preventDefault();
+
     try {
       const res = await axios.post('/users/login', { email, password });
-      loginUser(res);
+      loginUser(res.data);
       history.push('/feed');
     } catch (err) {
       // TODO: handle error
@@ -51,4 +53,4 @@ const Login = ({ history }) => {
   );
 };
 
-export default withRouter(Login);
+export default Login;

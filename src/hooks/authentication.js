@@ -9,6 +9,7 @@ export const useAuthentication = history => {
     localStorage.setItem(
       'user',
       JSON.stringify({
+        id: data.data.user._id,
         email: data.data.user.email,
         username: data.data.user.username,
         expiresAt: data.data.expiration,

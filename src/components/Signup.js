@@ -2,9 +2,10 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import '../css/Signup.css';
 import UserContext from '../context/UserContext';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-const Signup = ({ history }) => {
+const Signup = () => {
+  const history = useHistory();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -73,4 +74,4 @@ const Signup = ({ history }) => {
   );
 };
 
-export default withRouter(Signup);
+export default Signup;
