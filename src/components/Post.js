@@ -9,6 +9,7 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
   const [showForm, setShowForm] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState(false);
   const content = useField('text');
   const commentContent = useField('text');
   const { user } = useContext(UserContext);
@@ -33,9 +34,11 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
 
   const loadComments = async () => {
     if (comments.length === 0) {
+      setLoadingComments(true);
       try {
         const res = await axios.get(`/posts/${post._id}/comments`);
         setComments(res.data.comments);
+        setLoadingComments(false);
       } catch (err) {
         // TODO: HANDLE ERROR
       }
@@ -49,26 +52,40 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
       <h3 className="post__author">{post.user.username}</h3>
       {post.user.username === user.username && (
         <>
-          <button onClick={() => setShowForm(!showForm)}>Edit Post</button>
-          <button onClick={() => handleDeletePost(post)}>Delete Post</button>
+          <button
+            className="post-btn__edit"
+            onClick={() => setShowForm(!showForm)}
+          >
+            Edit Post
+          </button>
+          <button
+            className="post-btn__delete"
+            onClick={() => handleDeletePost(post)}
+          >
+            Delete Post
+          </button>
         </>
       )}
 
       {showForm && (
         <form
+          className="post-form__edit"
           onSubmit={event => handleEditPost(event, post, content, setShowForm)}
         >
           <textarea
             className="content"
-            value={post.content}
             rows="6"
             cols="30"
             {...content}
+            minLength="10"
           ></textarea>
-          <button type="submit">Update Post</button>
+          <button className="post-btn__submit-update" type="submit">
+            Update Post
+          </button>
         </form>
       )}
       <button
+        className="post-btn__comments"
         onClick={() => {
           setShowComments(!showComments);
           loadComments();
@@ -87,7 +104,7 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
             ></textarea>
             <button type="submit">Leave Comment</button>
           </form>
-          <Comments comments={comments} />
+          <Comments comments={comments} isLoading={loadingComments} />
         </>
       )}
     </div>

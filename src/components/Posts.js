@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Post from '../components/Post';
-import PostForm from '../components/PostForm';
+import Error from './Error';
+import Post from './Post';
+import PostForm from './PostForm';
 import '../css/Posts.css';
 
 const Posts = ({ getPosts }) => {
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState('');
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -53,7 +56,12 @@ const Posts = ({ getPosts }) => {
 
   return (
     <>
-      <PostForm handleNewPost={handleNewPost} />
+      {isError && <Error error={error} />}
+      <PostForm
+        handleNewPost={handleNewPost}
+        setError={setError}
+        setIsError={setIsError}
+      />
       <div className="post__container">
         {posts.map(el => (
           <Post
