@@ -3,7 +3,14 @@ import axios from 'axios';
 import { useField } from '../hooks/fields';
 import '../css/PostForm.css';
 
-const PostForm = ({ handleNewPost, setError, setIsError }) => {
+const PostForm = ({
+  handleNewPost,
+  setError,
+  setIsError,
+  setTimeoutId,
+  timeoutId,
+  errorRef,
+}) => {
   const content = useField('text');
 
   const handleSubmit = async event => {
@@ -15,11 +22,14 @@ const PostForm = ({ handleNewPost, setError, setIsError }) => {
     } catch (err) {
       setIsError(true);
       setError(err.response.data.msg);
-      setTimeout(() => {
-        setIsError(false);
-        setError('');
-      }, 5000);
-      console.log(err);
+      window.clearTimeout(timeoutId);
+      setTimeoutId(
+        setTimeout(() => {
+          setIsError(false);
+          setError('');
+        }, 5000)
+      );
+      window.scrollTo(0, errorRef.current.offsetTop);
     }
   };
 

@@ -5,7 +5,16 @@ import { useField } from '../hooks/fields';
 import Comments from './Comments';
 import '../css/Post.css';
 
-const Post = ({ post, handleEditPost, handleDeletePost }) => {
+const Post = ({
+  post,
+  handleEditPost,
+  handleDeletePost,
+  setIsError,
+  setError,
+  setTimeoutId,
+  timeoutId,
+  errorRef,
+}) => {
   const [showForm, setShowForm] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
@@ -24,11 +33,20 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
         setComments([res.data.comment].concat(comments));
         commentContent.onReset();
       } else {
-        setComments(res.data.comment);
+        setComments([res.data.comment]);
+        commentContent.onReset();
       }
     } catch (err) {
-      // TODO: HANDLE ERROR
-      console.log(err);
+      setIsError(true);
+      setError(err.response.data.msg);
+      window.clearTimeout(timeoutId);
+      setTimeoutId(
+        setTimeout(() => {
+          setIsError(false);
+          setError('');
+        }, 5000)
+      );
+      window.scrollTo(0, errorRef.current.offsetTop);
     }
   };
 
@@ -40,7 +58,16 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
         setComments(res.data.comments);
         setLoadingComments(false);
       } catch (err) {
-        // TODO: HANDLE ERROR
+        setIsError(true);
+        setError('Something Went Wrong. Please Try Again');
+        window.clearTimeout(timeoutId);
+        setTimeoutId(
+          setTimeout(() => {
+            setIsError(false);
+            setError('');
+          }, 5000)
+        );
+        window.scrollTo(0, errorRef.current.offsetTop);
       }
     }
   };
@@ -48,8 +75,14 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
   return (
     <div className="post">
       <p className="post__content">{post.content}</p>
-      <p className="post__likes">{post.likes}</p>
-      <h3 className="post__author">{post.user.username}</h3>
+      <div className="post__author__info">
+        <img
+          className="avatar-image"
+          src="sergio-de-paula-c_GmwfHBDzk-unsplash.jpg"
+          alt="person"
+        />
+        <h3 className="post__author">{post.user.username}</h3>
+      </div>
       {post.user.username === user.username && (
         <>
           <button
@@ -95,7 +128,7 @@ const Post = ({ post, handleEditPost, handleDeletePost }) => {
       </button>
       {showComments && (
         <>
-          <form onSubmit={handleNewComment}>
+          <form className="comment-form" onSubmit={handleNewComment}>
             <textarea
               className="content"
               rows="6"

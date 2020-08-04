@@ -9,13 +9,13 @@ export const useAuthentication = history => {
     localStorage.setItem(
       'user',
       JSON.stringify({
-        id: data.data.user._id,
-        email: data.data.user.email,
-        username: data.data.user.username,
-        expiresAt: data.data.expiration,
+        id: data.user._id,
+        email: data.user.email,
+        username: data.user.username,
+        expiresAt: data.expiration,
       })
     );
-    setUser({ email: data.data.user.email, username: data.data.user.username });
+    setUser({ email: data.user.email, username: data.user.username });
   };
 
   const logoutUser = async history => {

@@ -1,16 +1,22 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Error from './Error';
 import '../css/Signup.css';
 import UserContext from '../context/UserContext';
-import { Link, useHistory } from 'react-router-dom';
 
 const Signup = () => {
   const history = useHistory();
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState('');
+  const [timeoutId, setTimeoutId] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const { loginUser } = useContext(UserContext);
+
+  const errorRef = useRef(null);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -21,16 +27,26 @@ const Signup = () => {
         password,
         passwordConfirm,
       });
-      loginUser(res);
+      loginUser(res.data);
       history.push('/feed');
     } catch (err) {
-      // TODO: handle error
-      console.log(err);
+      setIsError(true);
+      console.log(err.response);
+      setError(err.response.data.msg);
+      window.clearTimeout(timeoutId);
+      setTimeoutId(
+        setTimeout(() => {
+          setIsError(false);
+          setError('');
+        }, 5000)
+      );
+      window.scrollTo(0, errorRef.current.offsetTop);
     }
   };
 
   return (
     <>
+      {isError && <Error errorRef={errorRef} error={error} />}
       <header className="signup-header">Signup Below!</header>
       <div className="signup">
         <form className="signup-form" onSubmit={handleSubmit}>

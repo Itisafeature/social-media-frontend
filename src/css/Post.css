@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   flex-basis: 25%;
+  flex-wrap: wrap;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 10px;
 }
@@ -23,4 +24,28 @@
 
 .post-btn__submit-update {
   margin-bottom: 5px;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post__author__info {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 0 5px 5px;
+}
+
+.avatar-image {
+  width: 25%;
+}
+
+.post__author {
+  margin-left: 50px;
+}
+
+.post__content {
+  padding: 0 10px;
 }

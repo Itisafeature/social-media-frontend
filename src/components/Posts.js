@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Error from './Error';
 import Post from './Post';
 import PostForm from './PostForm';
 import '../css/Posts.css';
+import '../css/Error.css';
 
 const Posts = ({ getPosts }) => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
+  const [timeoutId, setTimeoutId] = useState('');
   const [posts, setPosts] = useState([]);
+
+  const errorRef = useRef(null);
 
   useEffect(() => {
     try {
@@ -16,7 +20,7 @@ const Posts = ({ getPosts }) => {
     } catch (err) {
       setPosts([]);
     }
-  }, [getPosts]);
+  }, [getPosts]); // I probably don't need this
 
   const handleNewPost = post => {
     setPosts(posts => [post].concat(posts));
@@ -29,17 +33,25 @@ const Posts = ({ getPosts }) => {
         content: content.value,
       });
       const editedPost = res.data.post;
-      console.log(editedPost.updatedAt);
-      setPosts(posts =>
-        posts
-          .map(post => (editedPost._id === post._id ? editedPost : post))
-          .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
-      );
+      console.log(editedPost);
+      setPosts(posts => [
+        editedPost,
+        ...posts.filter(post => post._id !== editedPost._id),
+      ]);
+
       content.onReset();
       setShowForm(false);
     } catch (err) {
-      // TODO: Handle Error
-      console.log(err);
+      setIsError(true);
+      setError(err.response.data.msg);
+      window.clearTimeout(timeoutId);
+      setTimeoutId(
+        setTimeout(() => {
+          setIsError(false);
+          setError('');
+        }, 5000)
+      );
+      window.scrollTo(0, errorRef.current.offsetTop);
     }
   };
 
@@ -56,11 +68,14 @@ const Posts = ({ getPosts }) => {
 
   return (
     <>
-      {isError && <Error error={error} />}
+      {isError && <Error errorRef={errorRef} error={error} />}
       <PostForm
         handleNewPost={handleNewPost}
         setError={setError}
         setIsError={setIsError}
+        setTimeoutId={setTimeoutId}
+        timeoutId={timeoutId}
+        errorRef={errorRef}
       />
       <div className="post__container">
         {posts.map(el => (
@@ -69,6 +84,12 @@ const Posts = ({ getPosts }) => {
             post={el}
             handleDeletePost={handleDeletePost}
             handleEditPost={handleEditPost}
+            handleNewPost={handleNewPost}
+            setError={setError}
+            setIsError={setIsError}
+            setTimeoutId={setTimeoutId}
+            timeoutId={timeoutId}
+            errorRef={errorRef}
           />
         ))}
       </div>
