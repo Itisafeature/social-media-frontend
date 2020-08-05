@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, withRouter } from 'react-router-dom';
+import { Switch, useHistory } from 'react-router-dom';
 import { useAuthentication } from './hooks/authentication';
 import UserContext from './context/UserContext';
 import Navbar from './components/Navbar';
@@ -7,7 +7,8 @@ import AuthenticatedRouter from './components/AuthenticatedRouter';
 import UnauthenticatedRouter from './components/UnauthenticatedRouter';
 import './css/App.css';
 
-const App = ({ history }) => {
+const App = () => {
+  const history = useHistory();
   const { loaded, user, loginUser, logoutUser } = useAuthentication(history);
 
   if (!loaded) return <div>Loading...</div>;
@@ -17,12 +18,14 @@ const App = ({ history }) => {
       <div className="App">
         <Navbar />
         <Switch>
-          {Object.keys(user).length > 0 && <AuthenticatedRouter />}
-          {Object.keys(user).length === 0 && <UnauthenticatedRouter />}
+          <>
+            <AuthenticatedRouter user={user} />
+            <UnauthenticatedRouter user={user} />
+          </>
         </Switch>
       </div>
     </UserContext.Provider>
   );
 };
 
-export default withRouter(App);
+export default App;

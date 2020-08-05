@@ -60,8 +60,8 @@ const Login = () => {
             Login
           </button>
         </form>
-        <Link className="signup-btn" to="/signup">
-          <button>Signup</button>
+        <Link className="signup__link" to="/signup">
+          <button className="signup-btn">Signup</button>
         </Link>
       </div>
     </>

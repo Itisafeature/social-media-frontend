@@ -18,6 +18,7 @@ const Posts = ({ getPosts }) => {
     try {
       getPosts().then(data => setPosts(data));
     } catch (err) {
+      console.log(err);
       setPosts([]);
     }
   }, [getPosts]); // I probably don't need this

@@ -31,7 +31,6 @@ const Signup = () => {
       history.push('/feed');
     } catch (err) {
       setIsError(true);
-      console.log(err.response);
       setError(err.response.data.msg);
       window.clearTimeout(timeoutId);
       setTimeoutId(
