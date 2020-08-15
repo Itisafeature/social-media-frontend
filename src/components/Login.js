@@ -39,30 +39,34 @@ const Login = () => {
   return (
     <>
       {isError && <Error errorRef={errorRef} error={error} />}
-      <header className="login-header">Login Below!</header>
-      <div className="login">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <input
-            className="login-form__text"
-            type="text"
-            onChange={e => setEmail(e.target.value)}
-            value={email}
-            placeholder="email"
-          />
-          <input
-            className="login-form__text"
-            type="password"
-            onChange={e => setPassword(e.target.value)}
-            value={password}
-            placeholder="password"
-          />
-          <button className="login-form__btn" type="submit">
-            Login
-          </button>
-        </form>
-        <Link className="signup__link" to="/signup">
-          <button className="signup-btn">Signup</button>
-        </Link>
+      <div className="login--container">
+        <header className="login-header">Login Below!</header>
+        <div className="login--card">
+          <div className="login">
+            <form className="login-form" onSubmit={handleSubmit}>
+              <input
+                className="login-form__text"
+                type="text"
+                onChange={e => setEmail(e.target.value)}
+                value={email}
+                placeholder="email"
+              />
+              <input
+                className="login-form__text"
+                type="password"
+                onChange={e => setPassword(e.target.value)}
+                value={password}
+                placeholder="password"
+              />
+              <button className="login-form__btn" type="submit">
+                Login
+              </button>
+            </form>
+            <Link className="signup__link" to="/signup">
+              <button className="signup-btn">Signup</button>
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );

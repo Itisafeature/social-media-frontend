@@ -6,6 +6,27 @@
   flex-wrap: wrap;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 10px;
+  position: fixed;
+}
+
+.btn {
+  background-color: rgb(140, 251, 255);
+  border: none;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  transition-duration: 0.4s;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+  background-color: darkblue;
+  border: none;
+  outline: none;
+  color: white;
 }
 
 .post-form__edit {

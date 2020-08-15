@@ -86,13 +86,13 @@ const Post = ({
       {post.user.username === user.username && (
         <>
           <button
-            className="post-btn__edit"
+            className="btn post-btn__edit"
             onClick={() => setShowForm(!showForm)}
           >
             Edit Post
           </button>
           <button
-            className="post-btn__delete"
+            className="btn post-btn__delete"
             onClick={() => handleDeletePost(post)}
           >
             Delete Post
@@ -112,13 +112,13 @@ const Post = ({
             {...content}
             minLength="10"
           ></textarea>
-          <button className="post-btn__submit-update" type="submit">
+          <button className="btn post-btn__submit-update" type="submit">
             Update Post
           </button>
         </form>
       )}
       <button
-        className="post-btn__comments"
+        className="btn post-btn__comments"
         onClick={() => {
           setShowComments(!showComments);
           loadComments();
@@ -135,7 +135,9 @@ const Post = ({
               cols="30"
               {...commentContent}
             ></textarea>
-            <button type="submit">Leave Comment</button>
+            <button className="btn" type="submit">
+              Leave Comment
+            </button>
           </form>
           <Comments comments={comments} isLoading={loadingComments} />
         </>
