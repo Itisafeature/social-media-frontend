@@ -74,8 +74,7 @@ const Post = ({
 
   return (
     <div className="post">
-      <p className="post__content">{post.content}</p>
-      <div className="post__author__info">
+      <div className="post--header">
         <img
           className="avatar-image"
           src="sergio-de-paula-c_GmwfHBDzk-unsplash.jpg"
@@ -83,8 +82,9 @@ const Post = ({
         />
         <h3 className="post__author">{post.user.username}</h3>
       </div>
+      <p className="post__content">{post.content}</p>
       {post.user.username === user.username && (
-        <>
+        <div className="post--btns">
           <button
             className="btn post-btn__edit"
             onClick={() => setShowForm(!showForm)}
@@ -97,7 +97,16 @@ const Post = ({
           >
             Delete Post
           </button>
-        </>
+          <button
+            className="btn post-btn__comments"
+            onClick={() => {
+              setShowComments(!showComments);
+              loadComments();
+            }}
+          >
+            Comments
+          </button>
+        </div>
       )}
 
       {showForm && (
@@ -112,20 +121,12 @@ const Post = ({
             {...content}
             minLength="10"
           ></textarea>
-          <button className="btn post-btn__submit-update" type="submit">
+          <button className="btn post-btn__update" type="submit">
             Update Post
           </button>
         </form>
       )}
-      <button
-        className="btn post-btn__comments"
-        onClick={() => {
-          setShowComments(!showComments);
-          loadComments();
-        }}
-      >
-        Comments
-      </button>
+
       {showComments && (
         <>
           <form className="comment-form" onSubmit={handleNewComment}>
