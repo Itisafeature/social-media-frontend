@@ -70,14 +70,6 @@
   width: 100%;
 }
 
-.signup-btn {
-  width: calc(100% - 40px);
-}
-
-.signup__link {
-  margin: 0px 0px 20px 20px;
-}
-
 .login-form__btn:hover,
 .signup-btn:hover {
   background: linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
@@ -87,4 +79,12 @@
 .login-form__btn:focus,
 .signup-btn:focus {
   outline: none;
+}
+
+.signup-btn {
+  width: calc(100% - 40px);
+}
+
+.signup__link {
+  margin: 0px 0px 20px 20px;
 }

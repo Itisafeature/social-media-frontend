@@ -136,7 +136,7 @@ const Post = ({
               cols="30"
               {...commentContent}
             ></textarea>
-            <button className="btn" type="submit">
+            <button className="btn post-comment--btn" type="submit">
               Leave Comment
             </button>
           </form>
