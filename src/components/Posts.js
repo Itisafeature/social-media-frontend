@@ -34,12 +34,10 @@ const Posts = ({ getPosts }) => {
         content: content.value,
       });
       const editedPost = res.data.post;
-      console.log(editedPost);
       setPosts(posts => [
         editedPost,
         ...posts.filter(post => post._id !== editedPost._id),
       ]);
-
       content.onReset();
       setShowForm(false);
     } catch (err) {

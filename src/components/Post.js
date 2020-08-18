@@ -18,6 +18,7 @@ const Post = ({
   const [showForm, setShowForm] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
+  const [commentsNum, setCommentsNum] = useState(0);
   const [loadingComments, setLoadingComments] = useState(false);
   const content = useField('text');
   const commentContent = useField('text');
@@ -50,14 +51,25 @@ const Post = ({
     }
   };
 
-  const loadComments = async () => {
+  const loadComments = async event => {
+    event.persist();
     if (comments.length === 0) {
       setLoadingComments(true);
+    }
+
+    if (
+      !event.target.className.includes('post-btn__comments') ||
+      comments.length === 0
+    ) {
       try {
-        const res = await axios.get(`/posts/${post._id}/comments`);
-        setComments(res.data.comments);
+        const res = await axios.get(
+          `/posts/${post._id}/comments/${commentsNum}`
+        );
+        setComments(comments.concat(res.data.comments));
+        setCommentsNum(commentsNum + 5);
         setLoadingComments(false);
       } catch (err) {
+        console.log(err);
         setIsError(true);
         setError('Something Went Wrong. Please Try Again');
         window.clearTimeout(timeoutId);
@@ -99,9 +111,9 @@ const Post = ({
           </button>
           <button
             className="btn post-btn__comments"
-            onClick={() => {
+            onClick={event => {
               setShowComments(!showComments);
-              loadComments();
+              loadComments(event);
             }}
           >
             Comments
@@ -140,7 +152,13 @@ const Post = ({
               Leave Comment
             </button>
           </form>
-          <Comments comments={comments} isLoading={loadingComments} />
+          <div className="comments">
+            <Comments
+              loadComments={loadComments}
+              comments={comments}
+              isLoading={loadingComments}
+            />
+          </div>
         </>
       )}
     </div>
