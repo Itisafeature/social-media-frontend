@@ -6,6 +6,11 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 10px;
   background: linear-gradient(45deg, #ca9c75, rgb(7 191 199));
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 .post--header {
@@ -14,6 +19,7 @@
 
 .avatar-image {
   width: 10%;
+  border-top-left-radius: 10px;
 }
 
 .post__author {
@@ -22,6 +28,7 @@
 
 .post__content {
   margin-left: 20px;
+  width: 100%;
 }
 
 .post--btns {
@@ -56,6 +63,10 @@
 
 .btn:focus {
   outline: none;
+}
+
+.post-btn__comments {
+  display: block;
 }
 
 .post-form__edit {

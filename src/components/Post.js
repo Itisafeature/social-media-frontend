@@ -95,31 +95,33 @@ const Post = ({
         <h3 className="post__author">{post.user.username}</h3>
       </div>
       <p className="post__content">{post.content}</p>
-      {post.user.username === user.username && (
-        <div className="post--btns">
-          <button
-            className="btn post-btn__edit"
-            onClick={() => setShowForm(!showForm)}
-          >
-            Edit Post
-          </button>
-          <button
-            className="btn post-btn__delete"
-            onClick={() => handleDeletePost(post)}
-          >
-            Delete Post
-          </button>
-          <button
-            className="btn post-btn__comments"
-            onClick={event => {
-              setShowComments(!showComments);
-              loadComments(event);
-            }}
-          >
-            Comments
-          </button>
-        </div>
-      )}
+      <div className="post--btns">
+        {post.user.username === user.username && (
+          <>
+            <button
+              className="btn post-btn__edit"
+              onClick={() => setShowForm(!showForm)}
+            >
+              Edit Post
+            </button>
+            <button
+              className="btn post-btn__delete"
+              onClick={() => handleDeletePost(post)}
+            >
+              Delete Post
+            </button>
+          </>
+        )}
+        <button
+          className="btn post-btn__comments"
+          onClick={event => {
+            setShowComments(!showComments);
+            loadComments(event);
+          }}
+        >
+          Comments
+        </button>
+      </div>
 
       {showForm && (
         <form

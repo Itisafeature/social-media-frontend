@@ -23,7 +23,11 @@ const Comments = ({ comments, isLoading, loadComments }) => {
       </>
     );
   } else {
-    return <div>No one has commented yet!</div>;
+    return (
+      <div className="no-comments">
+        <p>No one has commented yet!</p>
+      </div>
+    );
   }
 };
 
