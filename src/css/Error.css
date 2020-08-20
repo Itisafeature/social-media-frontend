@@ -1,6 +1,6 @@
 .error__notification {
   text-align: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   background-color: rgb(197, 74, 65);
   border: 2px solid black;
   border-radius: 25px;
