@@ -15,12 +15,15 @@ const Posts = ({ getPosts }) => {
   const errorRef = useRef(null);
 
   useEffect(() => {
+    console.log(getPosts);
     try {
       getPosts().then(data => setPosts(data));
     } catch (err) {
       console.log(err);
       setPosts([]);
     }
+
+    return () => console.log('cleanup');
   }, [getPosts]); // I probably don't need this
 
   const handleNewPost = post => {
