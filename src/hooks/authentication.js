@@ -33,18 +33,15 @@ export const useAuthentication = history => {
         try {
           const res = await axios.get('/users/auth');
           loginUser(res);
-          setLoaded(true);
         } catch (err) {
-          setLoaded(true);
-          history.push('/login');
+          console.log(err);
         }
       } else if (Date.now() > userData.expiresAt) {
-        setLoaded(true);
         history.push('/login');
       } else {
         setUser(userData);
-        setLoaded(true);
       }
+      setLoaded(true);
     };
     checkAuth(history);
   }, [history]);

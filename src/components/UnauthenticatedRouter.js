@@ -5,12 +5,12 @@ import Login from './Login';
 import Signup from './Signup';
 import NotFound from './NotFound';
 
-const UnauthenticatedRouter = ({ user }) => {
+const UnauthenticatedRouter = () => {
   return (
     <Switch>
-      <UnprotectedRoute exact path="/" component={Login} user={user} />
-      <UnprotectedRoute exact path="/login" component={Login} user={user} />
-      <UnprotectedRoute exact path="/signup" component={Signup} user={user} />
+      <UnprotectedRoute exact path="/" component={Login} />
+      <UnprotectedRoute exact path="/login" component={Login} />
+      <UnprotectedRoute exact path="/signup" component={Signup} />
       <Route exact path="/feed">
         <Redirect to="/login" />
       </Route>

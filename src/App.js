@@ -19,9 +19,7 @@ const App = () => {
         <Navbar />
         <div className="app-container">
           {Object.keys(user).length > 0 && <AuthenticatedRouter user={user} />}
-          {Object.keys(user).length < 1 && (
-            <UnauthenticatedRouter user={user} />
-          )}
+          {Object.keys(user).length < 1 && <UnauthenticatedRouter />}
         </div>
       </div>
     </UserContext.Provider>
