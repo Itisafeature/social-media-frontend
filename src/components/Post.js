@@ -68,7 +68,6 @@ const Post = ({
         setCommentsNum(commentsNum + 5);
         setLoadingComments(false);
       } catch (err) {
-        console.log(err);
         setIsError(true);
         setError('Something Went Wrong. Please Try Again');
         window.clearTimeout(timeoutId);
@@ -83,14 +82,11 @@ const Post = ({
     }
   };
 
+  console.log(post.user);
   return (
     <div className="post">
       <div className="post--header">
-        <img
-          className="avatar-image"
-          src="sergio-de-paula-c_GmwfHBDzk-unsplash.jpg"
-          alt="person"
-        />
+        <img className="avatar-image" src={post.user.image} alt="person" />
         <h3 className="post__author">{post.user.username}</h3>
       </div>
       <p className="post__content">{post.content}</p>

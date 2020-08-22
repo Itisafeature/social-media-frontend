@@ -1,11 +1,5 @@
 .error__notification {
   text-align: center;
-  /* margin-top: 10px; */
   background-color: rgb(197, 74, 65);
   border: 2px solid black;
-  border-radius: 25px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  -ms-border-radius: 25px;
-  -o-border-radius: 25px;
 }

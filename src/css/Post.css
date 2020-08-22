@@ -15,10 +15,11 @@
 
 .post--header {
   display: flex;
+  width: 100%;
 }
 
 .avatar-image {
-  width: 10%;
+  width: 5%;
   border-top-left-radius: 10px;
 }
 

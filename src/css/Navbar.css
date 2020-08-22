@@ -1,7 +1,7 @@
 .navbar {
   display: flex;
-  height: 5vh;
-  background-color: aqua;
+  height: 7vh;
+  background-color: rgb(226, 184, 136);
   justify-content: space-between;
 }
 
@@ -9,8 +9,7 @@
   margin-top: 10px;
   margin-left: 10px;
   padding: 0;
-  height: 50px;
-  width: 25%;
+  height: 40px;
 }
 
 .nav-links {

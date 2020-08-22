@@ -12,6 +12,7 @@ export const useAuthentication = history => {
         id: data.user._id,
         email: data.user.email,
         username: data.user.username,
+        image: data.user.image,
         expiresAt: data.expiration,
       })
     );

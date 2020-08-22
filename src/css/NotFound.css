@@ -1,5 +1,5 @@
 .not-found--container {
-  height: calc(100vh - 40px);
+  height: calc(100vh - 55px);
   background-image: url('/will-ferrell.gif');
   background-size: 100% 100%;
   display: flex;
