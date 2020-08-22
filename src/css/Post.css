@@ -4,7 +4,7 @@
   width: 75%;
   flex-wrap: wrap;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 10px;
+  margin: 10px auto;
   background: linear-gradient(45deg, #ca9c75, rgb(7 191 199));
   border-radius: 10px;
   -webkit-border-radius: 10px;

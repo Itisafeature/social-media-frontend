@@ -5,7 +5,7 @@ const ProtectedRoute = ({ component: Component, user, getPosts, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props => <Component {...props} getPosts={getPosts} />}
+      render={props => <Component {...props} user={user} getPosts={getPosts} />}
     />
   );
 };

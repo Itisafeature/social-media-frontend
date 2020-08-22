@@ -1,18 +1,16 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Error from './Error';
 import '../css/Login.css';
-import UserContext from '../context/UserContext';
 
-const Login = () => {
+const Login = ({ loginUser }) => {
   const history = useHistory();
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
   const [timeoutId, setTimeoutId] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loginUser } = useContext(UserContext);
 
   const errorRef = useRef(null);
 

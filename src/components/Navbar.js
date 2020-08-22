@@ -1,13 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import UserContext from '../context/UserContext';
 import '../css/Navbar.css';
 
-// FIXME: Object.keys better way
-
-const Navbar = () => {
+const Navbar = ({ user, logoutUser }) => {
   const history = useHistory();
-  const { user, logoutUser } = useContext(UserContext);
 
   if (Object.keys(user).length === 0) {
     return (

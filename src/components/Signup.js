@@ -1,11 +1,10 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Error from './Error';
 import '../css/Signup.css';
-import UserContext from '../context/UserContext';
 
-const Signup = () => {
+const Signup = ({ loginUser }) => {
   const history = useHistory();
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
@@ -14,7 +13,6 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const { loginUser } = useContext(UserContext);
 
   const errorRef = useRef(null);
 

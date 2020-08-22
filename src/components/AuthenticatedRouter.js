@@ -33,6 +33,9 @@ const AuthenticatedRouter = ({ user }) => {
         user={user}
         getPosts={getUserPosts}
       />
+      <Route exact path="/">
+        <Redirect to="/feed"></Redirect>
+      </Route>
       <Route exact path="/login">
         <Redirect to="/feed" />
       </Route>

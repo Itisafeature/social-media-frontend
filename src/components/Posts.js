@@ -6,7 +6,7 @@ import PostForm from './PostForm';
 import '../css/Posts.css';
 import '../css/Error.css';
 
-const Posts = ({ getPosts }) => {
+const Posts = ({ getPosts, user }) => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
   const [timeoutId, setTimeoutId] = useState('');
@@ -15,7 +15,6 @@ const Posts = ({ getPosts }) => {
   const errorRef = useRef(null);
 
   useEffect(() => {
-    console.log(getPosts);
     try {
       getPosts().then(data => setPosts(data));
     } catch (err) {
@@ -83,6 +82,7 @@ const Posts = ({ getPosts }) => {
         {posts.map(el => (
           <Post
             key={el._id}
+            user={user}
             post={el}
             handleDeletePost={handleDeletePost}
             handleEditPost={handleEditPost}

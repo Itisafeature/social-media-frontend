@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import UserContext from '../context/UserContext';
 import { useField } from '../hooks/fields';
 import Comments from './Comments';
 import '../css/Post.css';
 
 const Post = ({
   post,
+  user,
   handleEditPost,
   handleDeletePost,
   setIsError,
@@ -22,7 +22,6 @@ const Post = ({
   const [loadingComments, setLoadingComments] = useState(false);
   const content = useField('text');
   const commentContent = useField('text');
-  const { user } = useContext(UserContext);
 
   const handleNewComment = async event => {
     event.preventDefault();

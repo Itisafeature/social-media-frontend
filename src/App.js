@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuthentication } from './hooks/authentication';
-import UserContext from './context/UserContext';
 import Navbar from './components/Navbar';
 import AuthenticatedRouter from './components/AuthenticatedRouter';
 import UnauthenticatedRouter from './components/UnauthenticatedRouter';
@@ -14,15 +13,15 @@ const App = () => {
   if (!loaded) return <div>Loading...</div>;
 
   return (
-    <UserContext.Provider value={{ user, loginUser, logoutUser }}>
-      <div className="App">
-        <Navbar />
-        <div className="app-container">
-          {Object.keys(user).length > 0 && <AuthenticatedRouter user={user} />}
-          {Object.keys(user).length < 1 && <UnauthenticatedRouter />}
-        </div>
+    <div className="App">
+      <Navbar logoutUser={logoutUser} user={user} />
+      <div className="app-container">
+        {Object.keys(user).length > 0 && <AuthenticatedRouter user={user} />}
+        {Object.keys(user).length < 1 && (
+          <UnauthenticatedRouter loginUser={loginUser} />
+        )}
       </div>
-    </UserContext.Provider>
+    </div>
   );
 };
 
