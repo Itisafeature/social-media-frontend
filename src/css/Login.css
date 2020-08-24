@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0px;
+  overflow-x: hidden;
+}
+
 .login--container {
   height: calc(100vh - 55px);
   background-image: url('/social-background.jpg');
@@ -87,4 +94,34 @@
 
 .signup__link {
   margin: 0px 0px 20px 20px;
+}
+
+@media only screen and (max-width: 1060px) {
+  .login--card {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .login--card {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .login--card {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .login--card {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-height: 900px) {
+  .login--container {
+    height: 100vh;
+  }
 }

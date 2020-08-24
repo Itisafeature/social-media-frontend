@@ -16,10 +16,11 @@
 .post--header {
   display: flex;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .avatar-image {
-  width: 5%;
+  min-width: 5%;
   border-top-left-radius: 10px;
 }
 
@@ -29,6 +30,7 @@
 
 .post__content {
   margin-left: 20px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
