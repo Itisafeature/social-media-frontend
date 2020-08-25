@@ -36,7 +36,7 @@
 
 .post--btns {
   display: flex;
-  margin: 0px 0px 5px 5px;
+  margin-bottom: 5px;
 }
 
 .btn {
@@ -100,4 +100,35 @@
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 550px) {
+  .post-form__edit,
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 5px auto;
+  }
+
+  .post-comment--btn {
+    margin-right: 5px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .btn {
+    margin: 0px;
+    padding: 5px;
+    font-size: 12px;
+  }
+  .post--btns {
+    width: 100%;
+    justify-content: space-evenly;
+  }
+}
+
+@media only screen and (max-width: 346px) {
+  .btn {
+    padding: 3px;
+  }
 }

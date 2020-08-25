@@ -61,3 +61,9 @@
     margin-right: 5em;
   }
 }
+
+@media only screen and (max-width: 650px) {
+  .nav-item {
+    font-size: 12px;
+  }
+}

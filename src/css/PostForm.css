@@ -46,3 +46,9 @@
   resize: none;
   margin: 5px;
 }
+
+@media only screen and (max-width: 346px) {
+  .post-form-btn {
+    margin-left: 0px;
+  }
+}
