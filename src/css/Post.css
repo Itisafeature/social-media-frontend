@@ -102,12 +102,34 @@
   flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 1500px) {
+  .post--btns {
+    width: 100%;
+    justify-content: center;
+  }
+  .post-form__edit,
+  .comment-form {
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .comment-form {
+    position: relative;
+    left: 14px;
+  }
+}
+
+@media only screen and (max-width: 558px) {
   .post-form__edit,
   .comment-form {
     display: flex;
     flex-direction: column;
     margin: 0 auto 5px auto;
+  }
+
+  .comment-form {
+    left: 0px;
   }
 
   .post-comment--btn {
@@ -118,7 +140,6 @@
 @media only screen and (max-width: 450px) {
   .btn {
     margin: 0px;
-    padding: 5px;
     font-size: 12px;
   }
   .post--btns {
@@ -129,6 +150,12 @@
 
 @media only screen and (max-width: 346px) {
   .btn {
+    padding: 3px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .post-form-btn {
     padding: 3px;
   }
 }
