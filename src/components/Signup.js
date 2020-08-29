@@ -13,18 +13,20 @@ const Signup = ({ loginUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [image, setImage] = useState('');
 
   const errorRef = useRef(null);
 
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const res = await axios.post('/users/signup', {
-        username,
-        email,
-        password,
-        passwordConfirm,
-      });
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('email', email);
+      formData.append('password', password);
+      formData.append('passwordConfirm', passwordConfirm);
+      formData.append('image', image);
+      const res = await axios.post('/users/signup', formData);
       loginUser(res.data);
       history.push('/feed');
     } catch (err) {
@@ -48,7 +50,11 @@ const Signup = ({ loginUser }) => {
         <header className="signup--header">Signup Below!</header>
         <div className="signup--card">
           <div className="signup">
-            <form className="signup-form" onSubmit={handleSubmit}>
+            <form
+              className="signup-form"
+              encType="multipart/form-data"
+              onSubmit={handleSubmit}
+            >
               <input
                 className="signup--form__text"
                 type="text"
@@ -77,6 +83,7 @@ const Signup = ({ loginUser }) => {
                 value={passwordConfirm}
                 placeholder="password confirmation"
               />
+              <input type="file" onChange={e => setImage(e.target.files[0])} />
               <button className="signup-form__btn" type="submit">
                 Signup
               </button>

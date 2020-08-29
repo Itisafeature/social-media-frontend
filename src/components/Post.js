@@ -81,8 +81,6 @@ const Post = ({
       }
     }
   };
-
-  console.log(post.user);
   return (
     <div className="post">
       <div className="post--header">
