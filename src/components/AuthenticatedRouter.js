@@ -6,14 +6,14 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import NotFound from './NotFound';
 
 const AuthenticatedRouter = ({ user }) => {
-  const getAllPosts = useCallback(async () => {
-    const res = await axios.get('/posts');
+  const getAllPosts = useCallback(async page => {
+    const res = await axios.get(`/posts?page=${page}`);
     return res.data.posts;
   }, []);
 
-  const getUserPosts = useCallback(async () => {
+  const getUserPosts = useCallback(async page => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const res = await axios.get(`/users/${user.id}/posts`);
+    const res = await axios.get(`/users/${user.id}/posts?page=${page}`);
     return res.data.posts;
   }, []);
 

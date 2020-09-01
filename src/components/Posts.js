@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import Error from './Error';
 import Post from './Post';
@@ -7,23 +7,42 @@ import '../css/Posts.css';
 import '../css/Error.css';
 
 const Posts = ({ getPosts, user }) => {
+  const [page, setPage] = useState(0);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
   const [timeoutId, setTimeoutId] = useState('');
   const [posts, setPosts] = useState([]);
 
+  const bottomBoundaryRef = useRef(null);
   const errorRef = useRef(null);
+
+  const scrollObserver = useCallback(element => {
+    new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.intersectionRatio > 0) {
+          console.log(en);
+          setPage(p => p + 1);
+        }
+      });
+    }).observe(element);
+  }, []);
 
   useEffect(() => {
     try {
-      getPosts().then(data => setPosts(data));
+      console.log(page);
+      getPosts(page).then(data => setPosts(p => p.concat(data)));
     } catch (err) {
-      console.log(err);
       setPosts([]);
     }
-
     return () => console.log('cleanup');
-  }, [getPosts]); // I probably don't need this
+  }, [getPosts, page]); // I probably don't need this
+
+  useEffect(() => {
+    console.log(bottomBoundaryRef.current && posts.length > 0);
+    if (bottomBoundaryRef.current && posts.length > 0) {
+      scrollObserver(bottomBoundaryRef.current);
+    }
+  }, [scrollObserver, bottomBoundaryRef]);
 
   const handleNewPost = post => {
     setPosts(posts => [post].concat(posts));
@@ -94,6 +113,11 @@ const Posts = ({ getPosts, user }) => {
             errorRef={errorRef}
           />
         ))}
+        <div
+          style={{ border: '1px solid red' }}
+          id="page-bottom-boundary"
+          ref={bottomBoundaryRef}
+        ></div>
       </div>
     </>
   );

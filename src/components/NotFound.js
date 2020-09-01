@@ -9,8 +9,6 @@ const NotFound = () => {
     history.goBack();
   };
 
-  console.log('here');
-
   return (
     <div className="not-found--container">
       <h1 className="not-found--h1">Unable to Locate this Page!</h1>
